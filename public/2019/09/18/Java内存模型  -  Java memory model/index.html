@@ -19,10 +19,14 @@
     <link rel="dns-prefetch" href="http://machu.club">
     <!--SEO-->
 
-<meta name="keywords" content="idea">
+<meta name="keywords" content="Java">
 
 
-<meta name="description" content="首先在 java 启动的时候加上参数:  指定一个端口 (以下为5066 )1Java -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspen...">
+<meta name="description" content="Java的内存结构，也就是运行时的数据区域：
+pc寄存器／程序计数器每个线程都需要有一个独立的程序计数器
+Java栈(Java stack)
+每创建一个线程，创建对应的Java栈
+每一个Java...">
 
 
 <meta name="robots" content="all">
@@ -33,7 +37,7 @@
 
 <title>
     
-    idea 通过跳板机 远程debug |
+    Java内存模型  -  Java memory model |
     
     Hexo
 </title>
@@ -140,16 +144,16 @@
                     <p id="process"></p>
 <article class="post">
     <div class="post-head">
-        <h1 id="idea 通过跳板机 远程debug">
+        <h1 id="Java内存模型  -  Java memory model">
             
-            idea 通过跳板机 远程debug
+            Java内存模型  -  Java memory model
             
         </h1>
         <div class="post-meta">
     
     <span class="categories-meta fa-wrap">
         <i class="fa fa-folder-open-o"></i>
-        <a class="category-link" href="/categories/工具/">工具</a>
+        <a class="category-link" href="/categories/知识点/">知识点</a>
     </span>
     
     
@@ -157,7 +161,7 @@
         <i class="fa fa-tags"></i>
         <span class="tags-meta">
             
-            <a class="tag-link" href="/tags/idea/">idea</a>
+            <a class="tag-link" href="/tags/Java/">Java</a>
             
         </span>
     </span>
@@ -167,7 +171,7 @@
     <span class="fa-wrap">
         <i class="fa fa-clock-o"></i>
         <span class="date-meta">
-            2019/10/18</span>
+            2019/09/18</span>
     </span>
     
     
@@ -177,17 +181,49 @@
     </div>
     
     <div class="post-body post-content">
-        <p><strong>首先在 java 启动的时候加上参数:  指定一个端口 (以下为5066 )</strong><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Java -Xdebug -Xrunjdwp:transport=dt_socket,server=y,<span class="built_in">suspend</span>=n,address=5066 -jar</span><br></pre></td></tr></table></figure></p>
-<p><strong>然后通过远程建立ssh通道将本地的5066,代理到服务机的5066端口上:</strong><br><img src="/img/pic/7B7A6C95-FDCE-41EA-81C8-2CBBA264688E.png" alt="fbebf4d4e38d675a257ba74843e226ad.png"><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -l <span class="variable">$JUMP_SERVER_USER</span> -L 5066:<span class="variable">$SERVER_IP</span>:5066 -p <span class="variable">$JUMP_SERVER_PORT</span> <span class="variable">$JUMP_SERVER_IP</span></span><br></pre></td></tr></table></figure></p>
-<ul>
-<li>JUMP_SERVER_USER : 是跳板机账号</li>
-<li>SERVER_IP : 是服务器的ip，跳板机通过该ip可连接到服务器</li>
-<li>JUMP_SERVER_PORT : 是指跳板机的ssh端口</li>
-<li>JUMP_SERVER_IP : 是指跳板机的ip</li>
+        <h2 id="Java的内存结构，也就是运行时的数据区域："><a href="#Java的内存结构，也就是运行时的数据区域：" class="headerlink" title="Java的内存结构，也就是运行时的数据区域："></a>Java的内存结构，也就是运行时的数据区域：</h2><p><img src="/img/pic/33824419-2CE7-4D17-BA98-22933CB80E7C.png" alt="fe1abe8a5220acf543c1aaf98ab5bedb.png"></p>
+<h4 id="pc寄存器／程序计数器"><a href="#pc寄存器／程序计数器" class="headerlink" title="pc寄存器／程序计数器"></a>pc寄存器／程序计数器</h4><p>每个线程都需要有一个独立的程序计数器</p>
+<h4 id="Java栈-Java-stack"><a href="#Java栈-Java-stack" class="headerlink" title="Java栈(Java stack)"></a>Java栈(Java stack)</h4><ul>
+<li>每创建一个线程，创建对应的Java栈</li>
+<li>每一个Java栈中包含多个栈帧(Stack Frame)</li>
+<li>栈帧会含有一些局部变量、操作栈和方法返回值等信息</li>
+<li>每当一个方法执行完成时，该栈帧就会弹出栈帧的元素作为这个方法的返回值，并且清除这个栈帧</li>
+<li>Java栈的栈顶的栈帧就是当前正在执行的活动栈(正在执行的方法)</li>
+<li>PC寄存器也会指向该地址</li>
+<li>只有这个活动的栈帧的本地变量可以被操作栈使用</li>
+<li>在这个栈帧中调用另一个方法时,新创建的栈帧会被放到栈顶,这个方法运行完时,栈帧被移除,之前的栈帧被重新变为活动栈,且调用方法的返回值会成为这个栈帧操作栈中的一个操作数</li>
 </ul>
-<p><strong>然后idea上配置远程debug后启动即可</strong></p>
-<p><img src="/img/pic/01C0C1C9-3B6C-401C-9791-77D90805D528.png" alt="fa01c4506935523fb577211b575963b8.png"></p>
-<p><strong>成功</strong><br><img src="/img/pic/E9755145-FA55-4D07-99B0-D785A224A5C6.png" alt="64125b2a2bb457c6c51c64955dd45c5f.png"></p>
+<p><img src="/img/pic/57BD88FF-5694-4CB5-B34B-5F0E04E343F0.png" alt="684fe763be5087cd7919448796f585c6.png"></p>
+<h4 id="堆-Heap"><a href="#堆-Heap" class="headerlink" title="堆(Heap)"></a>堆(Heap)</h4><ul>
+<li>Jvm里内存最大的一块,启动时创建</li>
+<li>被所有Java线程锁共享,不是线程安全</li>
+<li>存储Java对象的地方</li>
+<li>所有的对象实例以及数组都要在堆上分配</li>
+<li>Java堆是GC管理的主要区域</li>
+</ul>
+<h4 id="方法区-Method-Area"><a href="#方法区-Method-Area" class="headerlink" title="方法区(Method Area)"></a>方法区(Method Area)</h4><ul>
+<li>存放了要加载的类的信息（名称、修饰符等）、类中的静态常量、类中定义为final类型的常量、类中的Field信息、类中的方法信息</li>
+<li>当在程序中通过Class对象的getName.isInterface等方法来获取信息时，这些数据都来源于方法区</li>
+<li>被Java线程锁共享的</li>
+<li>不会频繁被GC回收，在一定条件下会被GC</li>
+<li>也是堆中的一部分，通常所说的Java堆中的永久区 Permanet Generation</li>
+</ul>
+<h4 id="常量池-Constant-Pool"><a href="#常量池-Constant-Pool" class="headerlink" title="常量池(Constant Pool)"></a>常量池(Constant Pool)</h4><ul>
+<li>本身是方法区中的一个数据结构。</li>
+<li>存储了如字符串、final变量值、类名和方法名常量。</li>
+<li>在编译期间就被确定，并保存在已编译的.class文件中。</li>
+<li>一般分为两类：字面量和引用量。字面量就是字符串、final变量等。类名和方法名属于引用量。引用量最常见的是在调用方法的时候，根据方法名找到方法的引用，并以此定位到函数体进行函数代码的执行。引用量包含：类和接口的权限定名、字段的名称和描述符，方法的名称和描述符。</li>
+</ul>
+<h4 id="本地方法栈-Native-Method-Stack"><a href="#本地方法栈-Native-Method-Stack" class="headerlink" title="本地方法栈(Native Method Stack)"></a>本地方法栈(Native Method Stack)</h4><ul>
+<li>和Java栈所发挥的作用非常相似</li>
+<li>区别:Java栈为JVM执行Java方法服务,本地方法栈为JVM执行Native方法服务</li>
+</ul>
+<h2 id="JMM"><a href="#JMM" class="headerlink" title="JMM"></a>JMM</h2><h3 id="主内存和工作内存"><a href="#主内存和工作内存" class="headerlink" title="主内存和工作内存"></a>主内存和工作内存</h3><p><em>Monitor</em></p>
+<ul>
+<li>所有的变量都存储在主内存（Main Memory）中</li>
+<li>每个线程还有自己的工作内存（Working Memory），线程的工作内存中保存了该线程使用到的变量的主内存的副本拷贝</li>
+<li>线程之间值的传递都需要通过主内存来完成</li>
+</ul>
 
     </div>
     
@@ -206,12 +242,12 @@
 </article>
 <div class="article-nav prev-next-wrap clearfix">
     
-    
-    <a href="/2019/09/18/Java内存模型  -  Java memory model/" class="next-post btn btn-default" title='Java内存模型  -  Java memory model'>
-        <span class="hidden-lg">下一篇</span>
+    <a href="/2019/10/18/idea 通过跳板机 远程debug/" class="pre-post btn btn-default" title='idea 通过跳板机 远程debug'>
+        <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
         <span class="hidden-xs">
-            Java内存模型  -  Java memory model</span><i class="fa fa-angle-right fa-fw"></i>
+            idea 通过跳板机 远程debug</span>
     </a>
+    
     
 </div>
 
@@ -223,7 +259,7 @@
             文章目录
         </h3>
         
-        <p>暂无目录</p>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Java的内存结构，也就是运行时的数据区域："><span class="toc-text">Java的内存结构，也就是运行时的数据区域：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#pc寄存器／程序计数器"><span class="toc-text">pc寄存器／程序计数器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Java栈-Java-stack"><span class="toc-text">Java栈(Java stack)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#堆-Heap"><span class="toc-text">堆(Heap)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#方法区-Method-Area"><span class="toc-text">方法区(Method Area)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#常量池-Constant-Pool"><span class="toc-text">常量池(Constant Pool)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#本地方法栈-Native-Method-Stack"><span class="toc-text">本地方法栈(Native Method Stack)</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JMM"><span class="toc-text">JMM</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#主内存和工作内存"><span class="toc-text">主内存和工作内存</span></a></li></ol></li></ol>
         
     </div>
 </aside>
