@@ -13,7 +13,7 @@ date: 2019-10-18 00:00:00
 Java -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5066 -jar 
 ```
 **然后通过远程建立ssh通道将本地的5066,代理到服务机的5066端口上:**
-![fbebf4d4e38d675a257ba74843e226ad.png](https://app.yinxiang.com/shard/s71/nl/16795298/ae196032-e6d3-44f7-b236-7085cafc39f0//res/b05ef307-90c8-40b4-8b4a-f61011a32a2e.png?resizeSmall&width=832)
+![fbebf4d4e38d675a257ba74843e226ad.png](./img/pic/7B7A6C95-FDCE-41EA-81C8-2CBBA264688E.png)
 ```bash
 ssh -l $JUMP_SERVER_USER -L 5066:$SERVER_IP:5066 -p $JUMP_SERVER_PORT $JUMP_SERVER_IP
 ```
@@ -25,7 +25,7 @@ ssh -l $JUMP_SERVER_USER -L 5066:$SERVER_IP:5066 -p $JUMP_SERVER_PORT $JUMP_SERV
 
 **然后idea上配置远程debug后启动即可**
 
-![fa01c4506935523fb577211b575963b8.png](https://app.yinxiang.com/shard/s71/nl/16795298/ae196032-e6d3-44f7-b236-7085cafc39f0//res/b5b91d20-a996-41c1-b95c-4b73821ac9a1.png?resizeSmall&width=832)
+![fa01c4506935523fb577211b575963b8.png](./img/pic/01C0C1C9-3B6C-401C-9791-77D90805D528.png)
 
 **成功**
-![64125b2a2bb457c6c51c64955dd45c5f.png](https://app.yinxiang.com/shard/s71/nl/16795298/ae196032-e6d3-44f7-b236-7085cafc39f0//res/de389de4-cd1a-4d99-a8e6-80dbd3dc395a.png?resizeSmall&width=832)
+![64125b2a2bb457c6c51c64955dd45c5f.png](./img/pic/E9755145-FA55-4D07-99B0-D785A224A5C6.png)
