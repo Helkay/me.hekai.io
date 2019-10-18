@@ -1,7 +1,7 @@
 ---
 title: idea 通过跳板机 远程debug
 categories:
-  - 工具
+  - 技术笔记
 tags:
   - idea
 comments: false
