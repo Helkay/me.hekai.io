@@ -964,6 +964,12 @@ pre {
 .widget .friends-link a {
   margin-right: 15px;
 }
+.widget .friends-link img {
+  width: 20px;
+  height: 20px;
+  max-width: 100%;
+  border-radius: 50%;
+}
 .widget #search-form {
   position: relative;
   width: 100%;
