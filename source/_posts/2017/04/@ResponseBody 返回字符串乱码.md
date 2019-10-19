@@ -1,7 +1,7 @@
 ---
 title: '@ResponseBody 返回字符串乱码'
 categories:
-  - Blog
+  - 技术笔记
 tags:
   - Java
 abbrlink: 17357

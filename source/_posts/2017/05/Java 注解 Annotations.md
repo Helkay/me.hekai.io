@@ -1,7 +1,7 @@
 ---
 title: Java 注解 Annotations
 categories:
-  - Blog
+  - 知识点
 tags:
   - Java
 abbrlink: 50788
@@ -10,7 +10,7 @@ date: 2017-05-11 00:00:00
 
 ### 什么是注解？
   可理解为元数据，即一种描述数据的数据。
-  
+
 ``` java
 @Override
 public String toString() {
@@ -18,14 +18,14 @@ public String toString() {
 }
 ```
 在上面的代码中我用Override重写了toString()代码,当然即使我不用注解,程序也是能够正常运行的,但加上了Override注解,它会告诉编译器这是个重写的方法,如果我不小心写错了方法名,而父类中没有该方法,则编译器就会报错。
-  
+
 ### 有关Annotation的一些说明
 java8 版本在 java.lang.annotation提供了六种元注解(Native和Repeatable是java8加入的，其他的是java5),用来注解其他注解:
 
 #### @Documented	: 一个简单的Annotations标记注解，表示是否将注解信息添加在java文档中。
 
 #### @Retention : 定义该注解的生命周期。
-		
+
 		RetentionPolicy.SOURCE
 		在编译阶段丢弃。
 		
@@ -34,7 +34,7 @@ java8 版本在 java.lang.annotation提供了六种元注解(Native和Repeatable
 		
 		RetentionPolicy.RUNTIME
 		 始终不会丢弃，运行期也保留该注解。
-		
+
 #### @Target : 表示该注解用于什么地方。如果不明确指出，该注解可以放在任何地方。需要说明的是：属性的注解是兼容的，如果你想给7个属性都添加注解，仅仅排除一个属性，那么你需要在定义target包含所有的属性。
 
 ``` java

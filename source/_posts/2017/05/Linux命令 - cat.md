@@ -1,7 +1,7 @@
 ---
 title: Linux命令 - cat
 categories:
-  - Blog
+  - 知识点
 tags:
   - Linux
 abbrlink: 45036

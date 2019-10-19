@@ -1,7 +1,7 @@
 ---
 title: Linux rm命令详解
 categories:
-  - Blog
+  - 技术笔记
 tags:
   - Linux
 abbrlink: 24601

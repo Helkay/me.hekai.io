@@ -1,0 +1,306 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="Hiko">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.2.3">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="http://machu.club">
+    <!--SEO-->
+
+<meta name="keywords" content="Linux">
+
+
+<meta name="description" content="系统版本： CentOS-6.8-x86_64-minimal
+因为装的是minimal版本,所以系统装好后,并连不上网络需要设置一下如下:12☁  ~  cd /etc/sysconfig/n...">
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+<title>
+    
+    安装Centos minimal及一些服务设置 |
+    
+    Hiko
+</title>
+
+<link rel="alternate" href="/atom.xml" title="Hiko" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
+
+    
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.7.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+    
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
+    
+
+</head></html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  style="background-image:url(
+    /./img/banner.png)"
+     >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='Hiko'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+        </div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://machu.club">
+                        Hiko</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa "></i>
+                                首页</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/技术笔记/"><i class="fa "></i>
+                                技术笔记</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/知识点/"><i class="fa "></i>
+                                知识点</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/生活/"><i class="fa "></i>
+                                生活</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/工具/"><i class="fa "></i>
+                                工具</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa "></i>
+                                时间轴</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="安装Centos minimal及一些服务设置">
+            
+            安装Centos minimal及一些服务设置
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a class="category-link" href="/categories/技术笔记/">技术笔记</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            <a class="tag-link" href="/tags/Linux/">Linux</a>
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">
+            2018/04/05</span>
+    </span>
+    
+    
+</div>
+        
+        
+        <p class="fa fa-exclamation-triangle warning">
+            本文于<strong>
+                562</strong>
+            天之前发表，文中内容可能已经过时。
+        </p>
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <p><strong>系统版本：</strong> CentOS-6.8-x86_64-minimal</p>
+<h4 id="因为装的是minimal版本-所以系统装好后-并连不上网络需要设置一下如下"><a href="#因为装的是minimal版本-所以系统装好后-并连不上网络需要设置一下如下" class="headerlink" title="因为装的是minimal版本,所以系统装好后,并连不上网络需要设置一下如下:"></a>因为装的是minimal版本,所以系统装好后,并连不上网络需要设置一下如下:</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">☁  ~  <span class="built_in">cd</span> /etc/sysconfig/network-scripts/</span><br><span class="line">☁  ~  vi ifcfg-eth0</span><br></pre></td></tr></table></figure>
+<p>将ONBOOT=no改为了yes</p>
+<p>然后重启网络服务</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">☁  ~  service network restart</span><br></pre></td></tr></table></figure>
+<h4 id="查看是否安装ssh"><a href="#查看是否安装ssh" class="headerlink" title="查看是否安装ssh"></a>查看是否安装ssh</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">☁  ~  yum list installed | grep openssh</span><br></pre></td></tr></table></figure>
+<p>如没有安装 则使用以下命令:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">☁  ~  yum install openssh</span><br></pre></td></tr></table></figure>
+<h4 id="新建用户"><a href="#新建用户" class="headerlink" title="新建用户"></a>新建用户</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">☁  ~  useradd -d /home/hiko hiko</span><br><span class="line">☁  ~  passwd hiko</span><br></pre></td></tr></table></figure>
+<p>若新建用户无ssh权限</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/ssh/sshd_config</span><br></pre></td></tr></table></figure>
+<p>添加 <code>AllowUsers:hiko</code></p>
+<p><strong>赋予root权限</strong><br>方法一：修改 <code>/etc/sudoers</code> 文件,找到以下两行,去掉第二行的 <code>#</code>去掉</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##Allows people in group wheel to run all commands</span></span><br><span class="line">%wheel            ALL=(ALL)           ALL</span><br></pre></td></tr></table></figure>
+<p>然后修改用户，使其属于<code>root</code>组（wheel），命令如下:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">☁  ~  usermod -g root hiko</span><br></pre></td></tr></table></figure>
+<p>修改完后，使用hiko帐号登录，命令<code>su -</code>，即可获得root权限。</p>
+<p>方法二：修改 <code>/etc/sudoers</code> 文件,找到以下内容在,root下面一行添加 hiko用户配置:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## Allow root to run any commands anywhere </span></span><br><span class="line">root    ALL=(ALL)       ALL</span><br><span class="line">hiko    ALL=(ALL)       ALL</span><br></pre></td></tr></table></figure>
+<p>修改完后，使用hiko帐号登录，命令<code>su -</code>，即可获得root权限。</p>
+<h4 id="ssh登录免密"><a href="#ssh登录免密" class="headerlink" title="ssh登录免密"></a>ssh登录免密</h4><p>使用ssh-keygen命令创建密钥对<br>假设 我现在需要在A机(192.168.1.1)上免密ssh登录到B(192.168.1.2)机</p>
+<p>在A机用户路径中的.ssh文件夹内创建密钥对</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">☁  ~  ssh-keygen -t rsa -f id_rsa.xxx  -P <span class="string">''</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong><em>-f 命名生成的文件名称</em></strong></li>
+<li><strong><em>-P ‘’ 无密码 （不加则需要输入三次回车）</em></strong></li>
+</ul>
+<p>这时候.ssh文件夹下会生成两个文件(id_rsa.xxx id_rsa.xxx.pub)</p>
+<p>将id_rsa.xxx.pub 用scp命令传输的B上</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">☁  ~  scp id_rsa.xxx.pub root@192.168.1.2:/(B机上.ssh的路径)</span><br></pre></td></tr></table></figure>
+<p>将id_rsa.xxx.pub里的内容写入到 .ssh中的authorized_keys文件中(没有则创建),并修改authorized_keys文件和.ssh文件夹的权限</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">☁  ~  cat id_rsa.xxx.pub&gt;&gt;authorized_keys</span><br><span class="line">☁  ~  chmod 600 authorized_keys</span><br><span class="line">☁  ~  chmod 700 -R .ssh</span><br></pre></td></tr></table></figure>
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Hiko</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    <a href="/2018/05/10/2018/05/linux 服务器下 docker 初体验/" class="pre-post btn btn-default" title='linux 服务器下 docker 初体验'>
+        <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+        <span class="hidden-xs">
+            linux 服务器下 docker 初体验</span>
+    </a>
+    
+    
+    <a href="/2017/10/25/2017/10/计算机基础之位运算/" class="next-post btn btn-default" title='计算机基础之位运算'>
+        <span class="hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            计算机基础之位运算</span><i class="fa fa-angle-right fa-fw"></i>
+    </a>
+    
+</div>
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            文章目录
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#因为装的是minimal版本-所以系统装好后-并连不上网络需要设置一下如下"><span class="toc-text">因为装的是minimal版本,所以系统装好后,并连不上网络需要设置一下如下:</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#查看是否安装ssh"><span class="toc-text">查看是否安装ssh</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#新建用户"><span class="toc-text">新建用户</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ssh登录免密"><span class="toc-text">ssh登录免密</span></a></li></ol>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="fa fa-chevron-up"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2017
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <!-- <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+</body>
+</html>

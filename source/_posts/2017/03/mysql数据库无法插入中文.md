@@ -1,7 +1,7 @@
 ---
 title: mysql数据库无法插入中文
 categories:
-  - Blog
+  - 技术笔记
 tags:
   - Mysql
 abbrlink: 31856

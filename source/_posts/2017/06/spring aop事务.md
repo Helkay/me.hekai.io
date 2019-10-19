@@ -1,7 +1,7 @@
 ---
 title: spring aop事务
 categories:
-  - Blog
+  - 技术笔记
 tags:
   - Spring
 abbrlink: 43959

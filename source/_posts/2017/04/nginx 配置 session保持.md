@@ -1,7 +1,7 @@
 ---
 title: nginx session保持
 categories:
-  - Blog
+  - 技术笔记
 tags:
   - Nginx
 abbrlink: 44626

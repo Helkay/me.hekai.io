@@ -1,7 +1,7 @@
 ---
 title: mysql快速复制数据库
 categories:
-  - Blog
+  - 技术笔记
 tags:
   - Mysql
 abbrlink: 30553

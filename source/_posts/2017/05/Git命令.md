@@ -1,7 +1,7 @@
 ---
 title: Git命令
 categories:
-  - Blog
+  - 技术笔记
 tags:
   - Git
 abbrlink: 19993

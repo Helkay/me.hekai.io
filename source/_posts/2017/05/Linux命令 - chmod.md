@@ -1,7 +1,7 @@
 ---
 title: Linux命令 - chmod
 categories:
-  - Blog
+  - 知识点
 tags:
   - Linux
 abbrlink: 64754

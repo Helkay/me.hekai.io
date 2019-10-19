@@ -1,7 +1,7 @@
 ---
 title: Maven学习笔记
 categories:
-  - Blog
+  - 技术笔记
 tags:
   - Maven
 abbrlink: 23775

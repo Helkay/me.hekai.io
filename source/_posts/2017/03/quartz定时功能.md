@@ -1,7 +1,7 @@
 ---
 title: quartz定时功能
 categories:
-  - Blog
+  - 技术笔记
 tags:
   - 定时器
 abbrlink: 38358

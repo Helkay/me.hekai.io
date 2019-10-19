@@ -1,7 +1,7 @@
 ---
 title: mysql ip授权
 categories:
-  - Blog
+  - 技术笔记
 tags:
   - Mysql
 abbrlink: 43093
