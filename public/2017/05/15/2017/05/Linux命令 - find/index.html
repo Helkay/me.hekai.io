@@ -1,0 +1,348 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="Hiko">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.2.3">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="http://machu.club">
+    <!--SEO-->
+
+<meta name="keywords" content="Linux">
+
+
+<meta name="description" content="功能：在指定目录下查找文件,如果不设置任何参数,则find命令将在当前目录下查找子目录与文件
+命令格式：1find pathname -options [-print -exec -ok ......">
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+<title>
+    
+    Linux命令 - find |
+    
+    Hiko
+</title>
+
+<link rel="alternate" href="/atom.xml" title="Hiko" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
+
+    
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.7.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+    
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
+    
+
+</head></html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  style="background-image:url(
+    /./img/banner.png)"
+     >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='Hiko'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+        </div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://machu.club">
+                        Hiko</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa "></i>
+                                首页</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/技术笔记/"><i class="fa "></i>
+                                技术笔记</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/知识点/"><i class="fa "></i>
+                                知识点</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/生活/"><i class="fa "></i>
+                                生活</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/工具/"><i class="fa "></i>
+                                工具</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa "></i>
+                                时间轴</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="Linux命令 - find">
+            
+            Linux命令 - find
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a class="category-link" href="/categories/Blog/">Blog</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            <a class="tag-link" href="/tags/Linux/">Linux</a>
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">
+            2017/05/15</span>
+    </span>
+    
+    
+</div>
+        
+        
+        <p class="fa fa-exclamation-triangle warning">
+            本文于<strong>
+                887</strong>
+            天之前发表，文中内容可能已经过时。
+        </p>
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <h3 id="功能："><a href="#功能：" class="headerlink" title="功能："></a>功能：</h3><p>在指定目录下查找文件,如果不设置任何参数,则find命令将在当前目录下查找子目录与文件</p>
+<h3 id="命令格式："><a href="#命令格式：" class="headerlink" title="命令格式："></a>命令格式：</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find pathname -options [-<span class="built_in">print</span> -<span class="built_in">exec</span> -ok ...]</span><br></pre></td></tr></table></figure>
+<p><strong>pathname:</strong>  find命令所查找的目录路径。例如用.来表示当前目录，用/来表示系统根目录。 </p>
+<p><strong>-print:</strong>  find命令将匹配的文件输出到标准输出。 </p>
+<p><strong>-exec:</strong>  find命令对匹配的文件执行该参数所给出的shell命令。相应命令的形式为’command’ {  } \;，注意{   }和\；之间的空格。 </p>
+<p><strong>-ok:</strong>  和-exec的作用相同，只不过以一种更为安全的模式来执行该参数所给出的shell命令，在执行每一个命令之前，都会给出提示，让用户来确定是否执</p>
+<h3 id="命令选项："><a href="#命令选项：" class="headerlink" title="命令选项："></a>命令选项：</h3><p><strong>-name :</strong>   按照文件名查找文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">find . -name filename</span><br><span class="line"></span><br><span class="line"><span class="comment">#查找当前目录包括子目录及子目录里的目录里以.txt结尾的文件</span></span><br><span class="line">find . -name <span class="string">'*.txt'</span></span><br></pre></td></tr></table></figure>
+<p><strong>-perm :</strong>   按照文件权限来查找文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find . -perm 755</span><br></pre></td></tr></table></figure>
+<p>顺带一提  在linux下权限数字rwx  r=4，w=2，x=1 </p>
+<p><strong>-prune :</strong>  使用这一选项可以使find命令不在当前指定的目录中查找,如果同时使用-depth选项，那么-prune将被find命令忽略。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#查找当前目录下的子目录及子目录中 名为dir文件夹中以.txt结尾的所有文件</span></span><br><span class="line">find . -path <span class="string">'*dir*'</span> -name <span class="string">'*.txt'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#只查找当前目录下 以.txt结尾的文件</span></span><br><span class="line">find . -depth 1 -name <span class="string">'*.txt'</span></span><br><span class="line">find . -maxdepth 1 -name <span class="string">'.txt'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#查找当前目录下名为dir的子目录中所有以.txt结尾的文件</span></span><br><span class="line">find . -path <span class="string">'./dir*'</span> -name <span class="string">'*.txt'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#查找dir目录中除了子目录dir0下其他子目录中以.txtx结尾的所有文件</span></span><br><span class="line">find . -path <span class="string">'./dir0'</span> -prune -o -name <span class="string">'*.txt'</span> -<span class="built_in">print</span></span><br></pre></td></tr></table></figure>
+<p><strong>-user :</strong>   按照文件属主来查找文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find . -user Helkay</span><br></pre></td></tr></table></figure>
+<p><strong>-group :</strong>  按照文件所属的组来查找文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find . -group staff</span><br></pre></td></tr></table></figure>
+<p><strong>-mtime -n +n :</strong>  按照文件的更改时间来查找文件， - n表示文件更改时间距现在n天以内,+ n表示文件更改时间距现在n天以前。find命令还有-atime和-ctime 选项，但它们都和-m time选项。</p>
+<p><strong>-nogroup :</strong>  查找无有效所属组的文件,即该文件所属的组在/etc/groups中不存在。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#列出/home内不属于本地组的文件或目录</span></span><br><span class="line">find /home -nogroup</span><br></pre></td></tr></table></figure>
+<p><strong>-nouser :</strong>   查找无有效属主的文件,即该文件的属主在/etc/passwd中不存在。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#列出/home内不属于本地用户的文件或目录  </span></span><br><span class="line">find /home -nouser</span><br></pre></td></tr></table></figure>
+<p><strong>-newer file1 ! file2 :</strong>  查找更改时间比文件file1新但比文件file2旧的文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find /home -newer tmp.txt ! tmp1.txt</span><br></pre></td></tr></table></figure>
+<p><strong>-type :</strong>  查找某一类型的文件,诸如：</p>
+<ul>
+<li>b - 块设备文件。</li>
+<li>d - 目录。</li>
+<li>c - 字符设备文件。</li>
+<li>p - 管道文件。</li>
+<li>l - 符号链接文件。</li>
+<li>f - 普通文件。</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find . -<span class="built_in">type</span> d</span><br></pre></td></tr></table></figure>
+<p><strong>-size n：[c,k] :</strong> 查找文件长度为n块的文件,带有c时表示文件长度以字节计。-depth：在查找文件时,首先查找当前目录中的文件,然后再在其子目录中查找。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#查找当前目录下(包括子目录)文件大于100k 小于200k 的文件</span></span><br><span class="line">find . -size +100k -size -200k</span><br></pre></td></tr></table></figure>
+<p><strong>-fstype :</strong> 查找位于某一类型文件系统中的文件,这些文件系统类型通常可以在配置文件/etc/fstab中找到,该配置文件中包含了本系统中有关文件系统的信息。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find / -fstype ext2</span><br></pre></td></tr></table></figure>
+<p><strong>-mount :</strong> 在查找文件时不跨越文件系统mount点。</p>
+<p><strong>-follow :</strong> 如果find命令遇到符号链接文件,就跟踪至链接所指向的文件。</p>
+<p><strong>-cpio :</strong>对匹配的文件使用cpio命令,将这些文件备份到磁带设备中。</p>
+<p>另外,下面三个的区别:</p>
+<p><strong>-amin n :</strong>  查找系统中最后N分钟访问的文件</p>
+<p><strong>-atime n :</strong> 查找系统中最后n*24小时访问的文件</p>
+<p><strong>-cmin n :</strong>  查找系统中最后N分钟被改变文件状态的文件</p>
+<p><strong>-ctime n :</strong> 查找系统中最后n*24小时被改变文件状态的文件</p>
+<p><strong>-mmin n :</strong>  查找系统中最后N分钟被改变文件数据的文件</p>
+<p><strong>-mtime n :</strong> 查找系统中最后n*24小时被改变文件数据的文件</p>
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Hiko</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    <a href="/2017/05/15/2017/05/Linux命令 - cat/" class="pre-post btn btn-default" title='Linux命令 - cat'>
+        <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+        <span class="hidden-xs">
+            Linux命令 - cat</span>
+    </a>
+    
+    
+    <a href="/2017/05/12/2017/05/Git命令/" class="next-post btn btn-default" title='Git命令'>
+        <span class="hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            Git命令</span><i class="fa fa-angle-right fa-fw"></i>
+    </a>
+    
+</div>
+
+<div id="comments">
+    
+
+<div id="vcomments" class="valine"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+<script>
+new Valine({
+    av: AV,
+    el: '#vcomments',
+    appId: 'xOKV9J4UeQAtVkvnJC7Kq2Jn-gzGzoHsz',
+    appKey: 'erIpQac4azoCmgfBB7Dl9maa',
+    placeholder: '说点什么吧',
+    notify: false,
+    verify: true,
+    avatar: 'mm',
+    meta: 'nick,mail'.split(','),
+    pageSize: '10',
+    path: window.location.pathname,
+    lang: 'zh-CN'.toLowerCase()
+})
+</script>
+
+
+</div>
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            文章目录
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#功能："><span class="toc-text">功能：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#命令格式："><span class="toc-text">命令格式：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#命令选项："><span class="toc-text">命令选项：</span></a></li></ol>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="fa fa-chevron-up"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2017
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <!-- <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+</body>
+</html>

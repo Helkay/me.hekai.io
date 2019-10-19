@@ -158,7 +158,6 @@ date: 2018-05-10 00:00:00
 ☁  ~  docker exec -it 775c7c9ee1e1 /bin/bash
 ```
 
-
 ##docker rm命令-删除一个或多个容器
 
 * 显示所有的容器，过滤出Exited状态的容器，取出这些容器的ID，
