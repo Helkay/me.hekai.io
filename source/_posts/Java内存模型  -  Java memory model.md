@@ -9,6 +9,7 @@ abbrlink: 61110
 date: 2019-09-18 00:00:00
 ---
 ## Java的内存结构，也就是运行时的数据区域：
+
 ![fe1abe8a5220acf543c1aaf98ab5bedb.png](http://pic.machu.club/33824419-2CE7-4D17-BA98-22933CB80E7C.png)
 
 ### pc寄存器／程序计数器

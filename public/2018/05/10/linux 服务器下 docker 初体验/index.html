@@ -1,0 +1,339 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="Hiko">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.2.3">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="http://machu.club">
+    <!--SEO-->
+
+<meta name="keywords" content="Docker">
+
+
+<meta name="description" content="系统版本:** CentOS-7-x86_64-Minimal-1804
+安装docker使用 yum install docker 命令安装docker
+使用非centos 7的版本可能会报以...">
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+<title>
+    
+    linux 服务器下 docker 初体验 |
+    
+    Hiko
+</title>
+
+<link rel="alternate" href="/atom.xml" title="Hiko" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
+
+    
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.7.0">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+    
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
+    
+
+</head></html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  style="background-image:url(
+    /./img/banner.png)"
+     >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='Hiko'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+        </div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://machu.club">
+                        Hiko</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa "></i>
+                                首页</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/技术笔记/"><i class="fa "></i>
+                                技术笔记</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/知识点/"><i class="fa "></i>
+                                知识点</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/生活/"><i class="fa "></i>
+                                生活</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/工具/"><i class="fa "></i>
+                                工具</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa "></i>
+                                时间轴</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="linux 服务器下 docker 初体验">
+            
+            linux 服务器下 docker 初体验
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a class="category-link" href="/categories/技术笔记/">技术笔记</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            <a class="tag-link" href="/tags/Docker/">Docker</a>
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">
+            2018/05/10</span>
+    </span>
+    
+    
+</div>
+        
+        
+        <p class="fa fa-exclamation-triangle warning">
+            本文于<strong>
+                527</strong>
+            天之前发表，文中内容可能已经过时。
+        </p>
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <p>系统版本:** CentOS-7-x86_64-Minimal-1804</p>
+<h2 id="安装docker"><a href="#安装docker" class="headerlink" title="安装docker"></a>安装docker</h2><p>使用 <code>yum install docker</code> 命令安装docker</p>
+<p>使用非centos 7的版本可能会报以下错误<br> <code>No package docker available</code></p>
+<p>没有找到docker包,需要第三方软件库<code>epel</code>,使用一下以下命令安装</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">☁  ~  sudo yum install epel-release</span><br></pre></td></tr></table></figure>
+<p>然后再安装</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">☁  ~  sudo yum install docker-io</span><br></pre></td></tr></table></figure>
+<h2 id="修改国内docker加速配置"><a href="#修改国内docker加速配置" class="headerlink" title="修改国内docker加速配置"></a>修改国内docker加速配置</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">☁  ~ vim /etc/docker/daemon.json</span><br></pre></td></tr></table></figure>
+<p>修改 <code>&quot;registry-mirrors&quot;</code> 为相应的国内加速地址</p>
+<p>修改好配置文件后，重新加载并启动</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">☁  ~ systemctl daemon-reload</span><br><span class="line">☁  ~ systemctl restart docker</span><br></pre></td></tr></table></figure>
+<h2 id="以下我会以在docker中使用jenkins为例-列举docker的一些基本使用方法"><a href="#以下我会以在docker中使用jenkins为例-列举docker的一些基本使用方法" class="headerlink" title="以下我会以在docker中使用jenkins为例,列举docker的一些基本使用方法"></a>以下我会以在docker中使用jenkins为例,列举docker的一些基本使用方法</h2><ul>
+<li>下载jenkins镜像</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">☁  ~  docker pull jenkins</span><br></pre></td></tr></table></figure>
+<ul>
+<li>创建jenkins文件夹 用来做挂载磁盘</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">☁  ~  mkdir /home/hiko/jenkins</span><br></pre></td></tr></table></figure>
+<p><strong><em>注意：在安装jenkins时候，挂在文件夹/home/hzq/jenkins/的归属用户id必须是1000，否则会抛出无操作权限异常。</em></strong></p>
+<ul>
+<li>查看文件夹属性</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">☁  ~  ls -nd /home/hiko/jenkins/</span><br></pre></td></tr></table></figure>
+<ul>
+<li>修改文件夹 <code>归属者</code> 和 <code>组</code></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">☁  ~  chown -R 1000:1000 jenkins/</span><br></pre></td></tr></table></figure>
+<ul>
+<li>启动jenkins </li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">☁  ~  docker run -itd -p 8080:8080 -p 50000:50000 --name jenkins --privileged=<span class="literal">true</span>  -v /home/hiko/jenkins:/var/jenkins_home jenkins</span><br></pre></td></tr></table></figure>
+<p><code>-p 8080:8080 -p 50000:50000</code> : 映射端口</p>
+<p><code>--privileged=true</code> : 在CentOS7中的安全模块selinux把权限禁掉了，参数给容器加权。</p>
+<p><code>-v /home/hiko/jenkins:/var/jenkins_home</code> : 磁盘挂载</p>
+<h2 id="查看containers储存地址"><a href="#查看containers储存地址" class="headerlink" title="查看containers储存地址"></a>查看containers储存地址</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">☁  ~  <span class="built_in">cd</span> /var/lib/docker/containers/ &#123;container_ID&#125;</span><br><span class="line">☁  ~  vi config.v2.json</span><br></pre></td></tr></table></figure>
+<p>自定义挂载:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"MountPoints"</span>: &#123;</span><br><span class="line">        <span class="attr">"/var/jenkins_home"</span>: &#123;</span><br><span class="line">            <span class="attr">"Source"</span>: <span class="string">"/home/hiko/jenkins"</span>,</span><br><span class="line">            <span class="attr">"Destination"</span>: <span class="string">"/var/jenkins_home"</span>,</span><br><span class="line">            <span class="attr">"RW"</span>: <span class="literal">true</span>,</span><br><span class="line">            <span class="attr">"Name"</span>: <span class="string">""</span>,</span><br><span class="line">            <span class="attr">"Driver"</span>: <span class="string">""</span>,</span><br><span class="line">            <span class="attr">"Type"</span>: <span class="string">"bind"</span>,</span><br><span class="line">            <span class="attr">"Propagation"</span>: <span class="string">"rprivate"</span>,</span><br><span class="line">            <span class="attr">"Spec"</span>: &#123;</span><br><span class="line">                <span class="attr">"Type"</span>: <span class="string">"bind"</span>,</span><br><span class="line">                <span class="attr">"Source"</span>: <span class="string">"/home/hiko/jenkins"</span>,</span><br><span class="line">                <span class="attr">"Target"</span>: <span class="string">"/var/jenkins_home"</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果不挂载磁盘,则默认启动后地址:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"MountPoints"</span>: &#123;</span><br><span class="line">        <span class="attr">"/var/jenkins_home"</span>: &#123;</span><br><span class="line">            <span class="attr">"Source"</span>: <span class="string">""</span>,</span><br><span class="line">            <span class="attr">"Destination"</span>: <span class="string">"/var/jenkins_home"</span>,</span><br><span class="line">            <span class="attr">"RW"</span>: <span class="literal">true</span>,</span><br><span class="line">            <span class="attr">"Name"</span>: <span class="string">"d48f1035be1c76267a404c4fea29ef2f709bdff0ddf0736356cbd4897c7bc87b"</span>,</span><br><span class="line">            <span class="attr">"Driver"</span>: <span class="string">"local"</span>,</span><br><span class="line">            <span class="attr">"Type"</span>: <span class="string">"volume"</span>,</span><br><span class="line">            <span class="attr">"Spec"</span>: &#123;&#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">☁  ~  <span class="built_in">cd</span> /var/lib/docker/volumes</span><br></pre></td></tr></table></figure>
+<h2 id="docker进入容器的几种办法"><a href="#docker进入容器的几种办法" class="headerlink" title="docker进入容器的几种办法"></a>docker进入容器的几种办法</h2><ol>
+<li><p><strong>docker attach</strong><br>使用 <code>docker attach</code> 想要进入命令行界面,有个前提是这个容器必须是用 <code>/bin/bash</code> 创建的。<br><strong>参考资料:</strong>  <a href="https://stackoverflow.com/questions/30960686/difference-between-docker-attach-and-docker-exec" target="_blank" rel="noopener">difference between docker attach and docker exec
+</a></p>
+</li>
+<li><p><strong>SSH</strong></p>
+</li>
+<li><p><strong>nsenter</strong></p>
+<p><a href="https://github.com/jpetazzo/nsenter" target="_blank" rel="noopener">github链接</a></p>
+</li>
+</ol>
+<ol start="4">
+<li><strong>docker exec</strong></li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">☁  ~  docker <span class="built_in">exec</span> -it 775c7c9ee1e1 /bin/bash</span><br></pre></td></tr></table></figure>
+<p>##docker rm命令-删除一个或多个容器</p>
+<ul>
+<li>显示所有的容器，过滤出Exited状态的容器，取出这些容器的ID，</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">☁  ~  docker ps -a | grep Exited|awk <span class="string">'&#123;print $1&#125;'</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>查询所有的容器，过滤出Exited状态的容器，列出容器ID，删除这些容器</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">☁  ~  docker rm `docker ps -a | grep Exited | awk <span class="string">'&#123;print $1&#125;'</span>`</span><br></pre></td></tr></table></figure>
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Hiko</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    <a href="/2019/09/18/Java内存模型  -  Java memory model/" class="pre-post btn btn-default" title='Java内存模型  -  Java memory model'>
+        <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+        <span class="hidden-xs">
+            Java内存模型  -  Java memory model</span>
+    </a>
+    
+    
+    <a href="/2018/04/05/安装Centos minimal及一些服务设置/" class="next-post btn btn-default" title='安装Centos minimal及一些服务设置'>
+        <span class="hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            安装Centos minimal及一些服务设置</span><i class="fa fa-angle-right fa-fw"></i>
+    </a>
+    
+</div>
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            文章目录
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装docker"><span class="toc-text">安装docker</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#修改国内docker加速配置"><span class="toc-text">修改国内docker加速配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#以下我会以在docker中使用jenkins为例-列举docker的一些基本使用方法"><span class="toc-text">以下我会以在docker中使用jenkins为例,列举docker的一些基本使用方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#查看containers储存地址"><span class="toc-text">查看containers储存地址</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#docker进入容器的几种办法"><span class="toc-text">docker进入容器的几种办法</span></a></li></ol>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="fa fa-chevron-up"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2017
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <!-- <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+</body>
+</html>
