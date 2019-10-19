@@ -66,4 +66,30 @@
     
   </entry>
   
+  <entry>
+    <title>安装Centos minimal及一些服务设置</title>
+    <link href="http://machu.club/2018/04/05/idea%20%E9%80%9A%E8%BF%87%E8%B7%B3%E6%9D%BF%E6%9C%BA%20%E8%BF%9C%E7%A8%8Bdebug%20copy/"/>
+    <id>http://machu.club/2018/04/05/idea 通过跳板机 远程debug copy/</id>
+    <published>2018-04-04T16:00:00.000Z</published>
+    <updated>2019-10-19T04:22:47.146Z</updated>
+    
+    <content type="html"><![CDATA[<p><strong>系统版本：</strong> CentOS-6.8-x86_64-minimal</p><h4 id="因为装的是minimal版本-所以系统装好后-并连不上网络需要设置一下如下"><a href="#因为装的是minimal版本-所以系统装好后-并连不上网络需要设置一下如下" class="headerlink" title="因为装的是minimal版本,所以系统装好后,并连不上网络需要设置一下如下:"></a>因为装的是minimal版本,所以系统装好后,并连不上网络需要设置一下如下:</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">☁  ~  <span class="built_in">cd</span> /etc/sysconfig/network-scripts/</span><br><span class="line">☁  ~  vi ifcfg-eth0</span><br></pre></td></tr></table></figure><p>将ONBOOT=no改为了yes</p><p>然后重启网络服务</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">☁  ~  service network restart</span><br></pre></td></tr></table></figure><h4 id="查看是否安装ssh"><a href="#查看是否安装ssh" class="headerlink" title="查看是否安装ssh"></a>查看是否安装ssh</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">☁  ~  yum list installed | grep openssh</span><br></pre></td></tr></table></figure><p>如没有安装 则使用以下命令:</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">☁  ~  yum install openssh</span><br></pre></td></tr></table></figure><h4 id="新建用户"><a href="#新建用户" class="headerlink" title="新建用户"></a>新建用户</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">☁  ~  useradd -d /home/hiko hiko</span><br><span class="line">☁  ~  passwd hiko</span><br></pre></td></tr></table></figure><p>若新建用户无ssh权限</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/ssh/sshd_config</span><br></pre></td></tr></table></figure><p>添加 <code>AllowUsers:hiko</code></p><p><strong>赋予root权限</strong><br>方法一：修改 <code>/etc/sudoers</code> 文件,找到以下两行,去掉第二行的 <code>#</code>去掉</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##Allows people in group wheel to run all commands</span></span><br><span class="line">%wheel            ALL=(ALL)           ALL</span><br></pre></td></tr></table></figure><p>然后修改用户，使其属于<code>root</code>组（wheel），命令如下:</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">☁  ~  usermod -g root hiko</span><br></pre></td></tr></table></figure><p>修改完后，使用hiko帐号登录，命令<code>su -</code>，即可获得root权限。</p><p>方法二：修改 <code>/etc/sudoers</code> 文件,找到以下内容在,root下面一行添加 hiko用户配置:</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## Allow root to run any commands anywhere </span></span><br><span class="line">root    ALL=(ALL)       ALL</span><br><span class="line">hiko    ALL=(ALL)       ALL</span><br></pre></td></tr></table></figure><p>修改完后，使用hiko帐号登录，命令<code>su -</code>，即可获得root权限。</p><h4 id="ssh登录免密"><a href="#ssh登录免密" class="headerlink" title="ssh登录免密"></a>ssh登录免密</h4><p>使用ssh-keygen命令创建密钥对<br>假设 我现在需要在A机(192.168.1.1)上免密ssh登录到B(192.168.1.2)机</p><p>在A机用户路径中的.ssh文件夹内创建密钥对</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">☁  ~  ssh-keygen -t rsa -f id_rsa.xxx  -P <span class="string">''</span></span><br></pre></td></tr></table></figure><ul><li><strong><em>-f 命名生成的文件名称</em></strong></li><li><strong><em>-P ‘’ 无密码 （不加则需要输入三次回车）</em></strong></li></ul><p>这时候.ssh文件夹下会生成两个文件(id_rsa.xxx id_rsa.xxx.pub)</p><p>将id_rsa.xxx.pub 用scp命令传输的B上</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">☁  ~  scp id_rsa.xxx.pub root@192.168.1.2:/(B机上.ssh的路径)</span><br></pre></td></tr></table></figure><p>将id_rsa.xxx.pub里的内容写入到 .ssh中的authorized_keys文件中(没有则创建),并修改authorized_keys文件和.ssh文件夹的权限</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">☁  ~  cat id_rsa.xxx.pub&gt;&gt;authorized_keys</span><br><span class="line">☁  ~  chmod 600 authorized_keys</span><br><span class="line">☁  ~  chmod 700 -R .ssh</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;&lt;strong&gt;系统版本：&lt;/strong&gt; CentOS-6.8-x86_64-minimal&lt;/p&gt;
+&lt;h4 id=&quot;因为装的是minimal版本-所以系统装好后-并连不上网络需要设置一下如下&quot;&gt;&lt;a href=&quot;#因为装的是minimal版本-所以系统装好后-并连不上
+      
+    
+    </summary>
+    
+      <category term="技术笔记" scheme="http://machu.club/categories/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/"/>
+    
+    
+      <category term="linux" scheme="http://machu.club/tags/linux/"/>
+    
+  </entry>
+  
 </feed>
